@@ -13,7 +13,6 @@ fi
 export PROMPT_DIRTRIM=2
 export GOPATH=$DIR/_workspace
 export PATH=$DIR/_workspace/bin/:$PATH
-export PROJECT="fe"
 plum="\[\033[38;5;54m\]"
 reset="\[\033[00m\]"
 export PS1="[${plum}$PROJECT${reset}] $PS1"
