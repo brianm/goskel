@@ -1,16 +1,20 @@
 # per-project info
 PACKAGE:=github.com/brianm/goskel
-BINARY:=skelly
+BINARY:=goskel
 
 # shouldn't probably change between projects
 WORKSPACE:=$(PWD)/_workspace
-BRANCH:=$(shell git branch | grep '^* ' | awk '{print $$2'})
+
+# this makefile is on the project branch, so we cannot lookup branch
+# we want. Default to master and allow folks to switch it manually in
+# the checked out repo after making the workspace. 
+#
+# In other words, leave this value alone!
+BRANCH:=master
 
 $(BINARY): workspace
-	git checkout project
-	make
-	git checkout $(BRANCH)
-	@echo "Built binary at ./$(BINARY)"
+	GOPATH=$(WORKSPACE) go install $(PACKAGE)
+	cp $(WORKSPACE)/bin/$(BINARY) .
 
 workspace: $(WORKSPACE)/src/$(PACKAGE)
 
@@ -20,8 +24,13 @@ $(WORKSPACE)/src/$(PACKAGE):
 	cp .git/config $(WORKSPACE)/src/$(PACKAGE)/.git/
 	cd $(WORKSPACE)/src/$(PACKAGE) && git checkout $(BRANCH)
 
-clean:
-	rm -rf $(WORKSPACE) $(BINARY)
+activate: workspace
+	@PROJECT="$(BINARY)" PACKAGE="$(PACKAGE)" /bin/bash ./local.bash activate
 
-project: workspace
-	git checkout project
+work: activate
+
+clean:
+	rm -f $(WORKSPACE)/bin/$(BINARY) $(BINARY)
+
+dist-clean: clean
+	rm -rf $(WORKSPACE) $(BINARY)
