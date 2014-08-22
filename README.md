@@ -5,10 +5,10 @@ Base project for go stuffs. Probably not #gonuts compatible.
 # Working and Building
 
 Don't panic. We have a Makefile. The makefile manages the *project*
-not the build.
+not the binary build. This way you can make a deb, rpm, man page, etc.
 
-It can make a build, of course, but that is just a useful thing, not
-general way of building.
+It *can* make a binary build, of course, but that is just a useful
+thing, not general way of building.
 
 If you want to work on this and have a workspace and everything set up
 for you, my recommendation is to do this:
@@ -18,8 +18,6 @@ for you, my recommendation is to do this:
 This sets up the workspace, moves you into it in a subprocess, etc. To
 stop working on the project just exit the sub-shell (C-d or
 <code>exit</code>). 
-
-The "project" is maintained in a branch named <code>project</code>.
 
 You will need to modify both the Makefile in <code>master</code> and
 <code>project</code> branches to use the proper package name and
@@ -60,5 +58,4 @@ install it via <code>go get</code> will get the most recent release,
 rather than the most recent checkin to master.
 
 If you hate all of this, ignore it. Pull requests, <code>go get</code>
-etc all work as with any other Go project. Have fun and ignore the
-<code>project</code> and <code>go1</code> branches for your hackery.
+etc all work as with any other Go project.
