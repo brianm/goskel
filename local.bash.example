@@ -1,0 +1,9 @@
+# Local bash file which will be executed on project activation. In
+# this case it forces a ~/.gospace symlink for something like gocode
+# which wants a predictable GOPATH
+
+GP=~/.gospace
+echo "Creating $GP symlink to workspace"
+
+rm -f $GP
+ln -s $DIR/_workspace $GP

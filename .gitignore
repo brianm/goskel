@@ -1,5 +1,6 @@
+local.bash
 goskel
-.workspace
+_workspace
 .bash_local
 WORKSPACE
 
